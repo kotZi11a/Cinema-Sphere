@@ -6,7 +6,8 @@ import lombok.Data;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDate;
+import java.util.List;
+
 
 @Data
 @Entity
@@ -17,6 +18,13 @@ public class Session {
     private long id;
     private Time time;
     private Date date;
-    private long id_film;
     private int id_hall;
+    @ManyToOne
+    @JoinColumn(name="hall_id")
+    private Hall hall;
+    @ManyToOne
+    @JoinColumn(name="film_id")
+    private Film film;
+    @OneToMany(mappedBy = "session")
+    private List<Order> orders;
 }

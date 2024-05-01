@@ -1,13 +1,18 @@
 package Sam.Cinema.Sphere.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+import java.util.Set;
+
 @Data
+@Builder
 @Entity
 @Table(name = "users")
 public class User {
@@ -20,4 +25,14 @@ public class User {
     @NonNull
     private String email;
     private String role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Favorite_film",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id"))
+    Set<Film> favoriteFilm;
 }

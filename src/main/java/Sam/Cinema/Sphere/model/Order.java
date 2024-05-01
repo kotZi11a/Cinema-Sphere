@@ -3,7 +3,8 @@ package Sam.Cinema.Sphere.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.sql.Time;
+
 
 @Data
 @Entity
@@ -12,9 +13,13 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private LocalDate time;
+    private Time time;
     private int place;
     private String status;
-    private long id_session;
-    private long id_user;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name="session_id")
+    private Session session;
 }
