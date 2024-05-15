@@ -1,6 +1,7 @@
 package Sam.Cinema.Sphere.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,8 +21,10 @@ public class Film{
     private Time duration;
     private String descriprion;
     private int age;
+    @JsonIgnoreProperties(value = "film")
     @OneToMany(mappedBy = "film")
     private List<Session> sessions;
+    @JsonIgnoreProperties(value = "favoriteFilm")
     @ManyToMany(mappedBy = "favoriteFilm")
     Set<User> favorites;
 }

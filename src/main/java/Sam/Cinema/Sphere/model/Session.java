@@ -1,6 +1,7 @@
 package Sam.Cinema.Sphere.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,13 +19,15 @@ public class Session {
     private long id;
     private Time time;
     private Date date;
-    private int id_hall;
+    @JsonIgnoreProperties(value = "sessions")
     @ManyToOne
     @JoinColumn(name="hall_id")
     private Hall hall;
+    @JsonIgnoreProperties(value = "sessions")
     @ManyToOne
     @JoinColumn(name="film_id")
     private Film film;
+    @JsonIgnoreProperties(value = "session")
     @OneToMany(mappedBy = "session")
     private List<Order> orders;
 }
